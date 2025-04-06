@@ -1,0 +1,10 @@
+# Ignorar archivos compilados
+*.class
+
+# Carpetas de NetBeans que no deben subirse
+nbproject/private/
+build/
+dist/
+
+# Archivos de logs
+*.log
