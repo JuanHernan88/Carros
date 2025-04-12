@@ -14,23 +14,35 @@ import autonoma.SimuladorCarros.exceptions.*;
  * @version 1.0.0 
  */
 public class Vehiculo {
-    private boolean encendido = false;
-    private int velocidadActual = 0;
-    private boolean patinando = false;
-    private boolean accidentado = false;
+    private boolean encendido;
+    private int velocidadActual;
+    private boolean patinando;
+    private boolean accidentado;
     private Motor motor;
     private Llantas llantas;
 
+    // Constructor
     public Vehiculo(Motor motor, Llantas llantas) {
         this.motor = motor;
         this.llantas = llantas;
+        this.encendido = false;
+        this.velocidadActual = 0;
     }
 
+    // Métodos
     public void encender() throws VehiculoYaEncendidoException, VehiculoAccidentadoException {
         if (accidentado) throw new VehiculoAccidentadoException();
         if (encendido) throw new VehiculoYaEncendidoException();
         encendido = true;
-        System.out.println("Vehículo encendido.");
+    }
+
+    public void acelerar(int kmh) throws VehiculoApagadoException, ExcesoVelocidadMotorException {
+        if (!encendido) throw new VehiculoApagadoException();
+        velocidadActual += kmh;
+        if (velocidadActual > motor.getVelocidadMaxima()) {
+            accidentado = true;
+            throw new ExcesoVelocidadMotorException();
+        }
     }
 
     public void apagar() throws VehiculoYaApagadoException, ApagarVehiculoAltaVelocidadException {
@@ -44,22 +56,6 @@ public class Vehiculo {
         encendido = false;
         System.out.println("Vehículo apagado.");
     }
-
-    public void acelerar(int kmh) throws VehiculoApagadoException, VehiculoAccidentadoException, VehiculoPatinandoException, ExcesoVelocidadMotorException {
-        if (!encendido) throw new VehiculoApagadoException();
-        if (accidentado) throw new VehiculoAccidentadoException();
-        if (patinando) throw new VehiculoPatinandoException();
-
-        velocidadActual += kmh;
-        if (velocidadActual > motor.getVelocidadMaxima()) {
-            accidentado = true;
-            encendido = false;
-            System.out.println("¡Accidente! Se superó la capacidad del motor.");
-            throw new ExcesoVelocidadMotorException();
-        }
-        System.out.println("Acelerando. Velocidad actual: " + velocidadActual + " Km/h.");
-    }
-
     public void frenar(int kmh) throws VehiculoApagadoException, FrenadoInnecesarioException, VehiculoPatinandoException {
         if (!encendido) throw new VehiculoApagadoException();
         if (velocidadActual == 0) throw new FrenadoInnecesarioException();
