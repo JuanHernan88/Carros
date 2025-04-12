@@ -46,52 +46,72 @@ public class Vehiculo {
     }
 
     public void apagar() throws VehiculoYaApagadoException, ApagarVehiculoAltaVelocidadException {
-        if (!encendido) throw new VehiculoYaApagadoException();
-        if (velocidadActual > 60) {
-            accidentado = true;
-            encendido = false;
-            System.out.println("¡Accidente! El vehículo se apagó a alta velocidad.");
-            throw new ApagarVehiculoAltaVelocidadException();
-        }
+     if (!encendido) {
+        throw new VehiculoYaApagadoException();
+     }
+     if (velocidadActual > 60) {
+        accidentado = true;
         encendido = false;
-        System.out.println("Vehículo apagado.");
+        throw new ApagarVehiculoAltaVelocidadException();
+     }
+     encendido = false;
     }
-    public void frenar(int kmh) throws VehiculoApagadoException, FrenadoInnecesarioException, VehiculoPatinandoException {
-        if (!encendido) throw new VehiculoApagadoException();
-        if (velocidadActual == 0) throw new FrenadoInnecesarioException();
-        if (patinando) throw new VehiculoPatinandoException();
-
-        velocidadActual -= kmh;
-        if (velocidadActual < 0) velocidadActual = 0;
-
-        System.out.println("Frenando. Velocidad actual: " + velocidadActual + " Km/h.");
+   public void frenar(int kmh) throws VehiculoApagadoException, 
+                                  FrenadoInnecesarioException, 
+                                  VehiculoPatinandoException {
+    if (!encendido) {
+        throw new VehiculoApagadoException();
     }
-
-    public void frenarBruscamente(int kmh) throws VehiculoApagadoException, VehiculoPatinandoException {
-        if (!encendido) throw new VehiculoApagadoException();
-        if (velocidadActual == 0) {
-            System.out.println("Frenado brusco innecesario. El vehículo ya está detenido.");
-            return;
-        }
-        if (patinando) throw new VehiculoPatinandoException();
-
-        if (velocidadActual > llantas.getLimiteVelocidad() || kmh > velocidadActual) {
-            patinando = true;
-            System.out.println("¡El vehículo patinó!");
-            return;
-        }
-
-        velocidadActual -= kmh;
-        if (velocidadActual < 0) velocidadActual = 0;
-
-        System.out.println("Frenado brusco controlado. Velocidad actual: " + velocidadActual + " Km/h.");
+    if (velocidadActual == 0) {
+        throw new FrenadoInnecesarioException();
     }
+    if (patinando) {
+        throw new VehiculoPatinandoException();
+    }
+    
+    velocidadActual = Math.max(0, velocidadActual - kmh);
+}
+public void frenarBruscamente(int kmh) throws VehiculoApagadoException {
+    if (!encendido) {
+        throw new VehiculoApagadoException();
+    }
+    
+    // Lógica de derrape (patinaje)
+    if (velocidadActual > 50 && kmh > 30) { // Umbrales para derrapar
+        patinando = true;
+        velocidadActual *= 0.7; // Reduce velocidad pero no se detiene
+        return; // Salir sin aplicar frenado normal
+    }
+    
+    // Frenado normal si no hay derrape
+    velocidadActual = Math.max(0, velocidadActual - kmh);
+}
 
     public void recuperarControl() {
         if (patinando && velocidadActual == 0) {
             patinando = false;
             System.out.println("El vehículo ha recuperado el control.");
         }
+    }
+    public int getVelocidadActual() {
+    return velocidadActual;
+    }
+    public boolean isEncendido() {
+    return this.encendido;
+    }
+
+    public boolean isPatinando() {
+    return this.patinando;
+    }
+
+    public boolean isAccidentado() {
+    return this.accidentado;
+    }
+    public Motor getMotor() {
+    return this.motor;
+    }
+    public Llantas getLlantas() {
+    return this.llantas;
     }
 
 }
