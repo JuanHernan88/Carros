@@ -16,6 +16,7 @@ import autonoma.SimuladorCarros.exceptions.VehiculoYaEncendidoException;
 import autonoma.SimuladorCarros.models.Vehiculo;
 import autonoma.SimuladorCarros.models.Motor;
 import autonoma.SimuladorCarros.models.Llantas;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -32,6 +33,11 @@ public class Principal extends javax.swing.JFrame {
      */
     public Principal() {
         initComponents();
+        try{
+            this.setIconImage(new ImageIcon(getClass().getResource("/autonoma/SimuladorCarros/images/icono.png")).getImage());
+        }catch(Exception e){
+            
+        }
          // Inicializar el vehículo al crear la ventana (ejemplo con valores por defecto)
         Motor motor = new Motor("2000"); // Motor de 2000 cc
         Llantas llantas = new Llantas("Bonitas"); // Llantas tipo "Bonitas"
@@ -54,6 +60,8 @@ public class Principal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         textAreaLog = new javax.swing.JTextArea();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         btnAcelerar = new javax.swing.JButton();
         btnFrenar = new javax.swing.JButton();
@@ -68,32 +76,50 @@ public class Principal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(255, 102, 102));
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
 
         textAreaLog.setColumns(20);
         textAreaLog.setRows(5);
         jScrollPane1.setViewportView(textAreaLog);
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autonoma/SimuladorCarros/images/studebaker_station_wagon_18541.png"))); // NOI18N
+
+        jLabel3.setFont(new java.awt.Font("Tempus Sans ITC", 1, 36)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Iniciemos!!!");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(jLabel2))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(173, 173, 173)
+                        .addComponent(jLabel3)))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(86, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(22, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
-        jPanel2.setBackground(new java.awt.Color(51, 102, 255));
+        jPanel2.setBackground(new java.awt.Color(0, 204, 204));
 
         btnAcelerar.setBackground(new java.awt.Color(102, 102, 102));
+        btnAcelerar.setFont(new java.awt.Font("Tempus Sans ITC", 1, 12)); // NOI18N
         btnAcelerar.setForeground(new java.awt.Color(255, 255, 255));
         btnAcelerar.setText("Acelerar");
         btnAcelerar.addActionListener(new java.awt.event.ActionListener() {
@@ -103,6 +129,7 @@ public class Principal extends javax.swing.JFrame {
         });
 
         btnFrenar.setBackground(new java.awt.Color(102, 102, 102));
+        btnFrenar.setFont(new java.awt.Font("Tempus Sans ITC", 1, 12)); // NOI18N
         btnFrenar.setForeground(new java.awt.Color(255, 255, 255));
         btnFrenar.setText("Frenar");
         btnFrenar.addActionListener(new java.awt.event.ActionListener() {
@@ -112,6 +139,7 @@ public class Principal extends javax.swing.JFrame {
         });
 
         Encender.setBackground(new java.awt.Color(102, 102, 102));
+        Encender.setFont(new java.awt.Font("Tempus Sans ITC", 1, 12)); // NOI18N
         Encender.setForeground(new java.awt.Color(255, 255, 255));
         Encender.setText("Encender");
         Encender.addActionListener(new java.awt.event.ActionListener() {
@@ -121,6 +149,7 @@ public class Principal extends javax.swing.JFrame {
         });
 
         Apagar.setBackground(new java.awt.Color(102, 102, 102));
+        Apagar.setFont(new java.awt.Font("Tempus Sans ITC", 1, 12)); // NOI18N
         Apagar.setForeground(new java.awt.Color(255, 255, 255));
         Apagar.setText("Apagar");
         Apagar.addActionListener(new java.awt.event.ActionListener() {
@@ -130,6 +159,7 @@ public class Principal extends javax.swing.JFrame {
         });
 
         btnFrenarBrusco.setBackground(new java.awt.Color(102, 102, 102));
+        btnFrenarBrusco.setFont(new java.awt.Font("Tempus Sans ITC", 1, 12)); // NOI18N
         btnFrenarBrusco.setForeground(new java.awt.Color(255, 255, 255));
         btnFrenarBrusco.setText("FrenarBrusco");
         btnFrenarBrusco.addActionListener(new java.awt.event.ActionListener() {
@@ -144,10 +174,12 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Tempus Sans ITC", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Velocidad");
 
         btnRecuperarControl.setBackground(new java.awt.Color(102, 102, 102));
+        btnRecuperarControl.setFont(new java.awt.Font("Tempus Sans ITC", 1, 12)); // NOI18N
         btnRecuperarControl.setForeground(new java.awt.Color(255, 255, 255));
         btnRecuperarControl.setText("RecuperarControl");
         btnRecuperarControl.addActionListener(new java.awt.event.ActionListener() {
@@ -157,6 +189,7 @@ public class Principal extends javax.swing.JFrame {
         });
 
         btnEspecificaciones.setBackground(new java.awt.Color(102, 102, 102));
+        btnEspecificaciones.setFont(new java.awt.Font("Tempus Sans ITC", 1, 12)); // NOI18N
         btnEspecificaciones.setForeground(new java.awt.Color(255, 255, 255));
         btnEspecificaciones.setText("Especificaciones");
         btnEspecificaciones.addActionListener(new java.awt.event.ActionListener() {
@@ -186,11 +219,14 @@ public class Principal extends javax.swing.JFrame {
                         .addComponent(btnFrenar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnFrenarBrusco, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtKmh, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(txtKmh, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -209,9 +245,9 @@ public class Principal extends javax.swing.JFrame {
                             .addComponent(btnRecuperarControl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnEspecificaciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
+                        .addGap(39, 39, 39)
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtKmh, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -362,6 +398,8 @@ private void actualizarEstado() {
     private javax.swing.JButton btnFrenarBrusco;
     private javax.swing.JButton btnRecuperarControl;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
