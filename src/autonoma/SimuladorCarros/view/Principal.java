@@ -16,6 +16,8 @@ import autonoma.SimuladorCarros.exceptions.VehiculoYaEncendidoException;
 import autonoma.SimuladorCarros.models.Vehiculo;
 import autonoma.SimuladorCarros.models.Motor;
 import autonoma.SimuladorCarros.models.Llantas;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 /**
@@ -72,6 +74,7 @@ public class Principal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnRecuperarControl = new javax.swing.JButton();
         btnEspecificaciones = new javax.swing.JButton();
+        btnEstado = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -107,13 +110,17 @@ public class Principal extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(22, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(jLabel3)
-                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addGap(17, 17, 17))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())))
         );
 
         jPanel2.setBackground(new java.awt.Color(0, 204, 204));
@@ -198,6 +205,16 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        btnEstado.setBackground(new java.awt.Color(102, 102, 102));
+        btnEstado.setFont(new java.awt.Font("Tempus Sans ITC", 1, 12)); // NOI18N
+        btnEstado.setForeground(new java.awt.Color(255, 255, 255));
+        btnEstado.setText("Estado");
+        btnEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEstadoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -206,20 +223,22 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(Apagar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnRecuperarControl)
-                        .addGap(78, 78, 78)
-                        .addComponent(btnEspecificaciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(Encender)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAcelerar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnFrenar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnFrenarBrusco, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnFrenarBrusco, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(Apagar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnRecuperarControl)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnEspecificaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -243,6 +262,7 @@ public class Principal extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(Apagar, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
                             .addComponent(btnRecuperarControl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnEstado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnEspecificaciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(39, 39, 39)
@@ -273,6 +293,10 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAcelerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcelerarActionPerformed
+        if (vehiculo.isAccidentado()) {
+           textAreaLog.append("\n💥 ¡Vehículo accidentado! No se puede acelerar\n");
+           return;
+        }
         try {
             int kmh = Integer.parseInt(txtKmh.getText());
             vehiculo.acelerar(kmh);
@@ -287,8 +311,13 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAcelerarActionPerformed
 
     private void btnFrenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFrenarActionPerformed
-         try {
+        if (vehiculo.isAccidentado()) {
+            textAreaLog.append("\n💥 ¡Vehículo accidentado! No se puede frenar\n");
+            return;
+        }
+        try {
         int kmh = Integer.parseInt(txtKmh.getText());
+        System.out.println("Intentando frenar: " + kmh + " km/h"); // Línea de depuración
         vehiculo.frenar(kmh);
         textAreaLog.append("🛑 Frenando: -" + kmh + " km/h | Velocidad actual: " 
                          + vehiculo.getVelocidadActual() + " km/h\n");
@@ -321,19 +350,24 @@ public class Principal extends javax.swing.JFrame {
     private void ApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ApagarActionPerformed
        try {
         vehiculo.apagar();
-        textAreaLog.append("🔌 Vehículo APAGADO correctamente\n");
-        actualizarEstado(); // Actualiza la interfaz
+        textAreaLog.append("\n🔌 Vehículo APAGADO correctamente\n");
     } catch (VehiculoYaApagadoException e) {
-        textAreaLog.append("⚠️ Error: " + e.getMessage() + "\n");
+        textAreaLog.append("\n⚠️ El vehículo ya está apagado\n");
     } catch (ApagarVehiculoAltaVelocidadException e) {
-        textAreaLog.append("💥 ¡ACCIDENTE! " + e.getMessage() + "\n");
-        actualizarEstado(); 
+        textAreaLog.append("\n⛔ ¡No se puede apagar! ");
+        textAreaLog.append("Velocidad actual: " + vehiculo.getVelocidadActual() + " km/h\n");
+        textAreaLog.append("   Reduce la velocidad a menos de 60 km/h para apagar\n");
+    } catch (VehiculoAccidentadoException e) {
+        textAreaLog.append("\n💥 ¡NO SE PUEDE APAGAR! El vehículo está accidentado\n");
     }
     }//GEN-LAST:event_ApagarActionPerformed
 
     private void btnFrenarBruscoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFrenarBruscoActionPerformed
-                                         
-    try {
+        if (vehiculo.isAccidentado()) {
+            textAreaLog.append("\n💥 ¡Vehículo accidentado! No se puede frenar bruscamente\n");
+            return;
+        }                                 
+        try {
         int kmh = Integer.parseInt(txtKmh.getText());
         
         vehiculo.frenarBruscamente(kmh);
@@ -356,13 +390,13 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFrenarBruscoActionPerformed
 
     private void btnRecuperarControlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecuperarControlActionPerformed
-         vehiculo.recuperarControl();
-    if (!vehiculo.isPatinando()) {
-        textAreaLog.append("🔄 Vehículo recuperó el control\n");
-    } else {
-        textAreaLog.append("⚠️ Aún patinando. Detenga el vehículo por completo\n");
-    }
-    actualizarEstado();
+        if (vehiculo.isAccidentado()){
+            textAreaLog.append("\n El vehiculo está accidentado y no se puede recuperar el control.\n");
+        }
+        else{
+            vehiculo.recuperarControl();
+            textAreaLog.append("\nEl vehiculo Recuperó el control.\n");
+        }
     }//GEN-LAST:event_btnRecuperarControlActionPerformed
 
     private void btnEspecificacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEspecificacionesActionPerformed
@@ -370,17 +404,23 @@ public class Principal extends javax.swing.JFrame {
     textAreaLog.append("Motor: " + vehiculo.getMotor().getTipo() + " (Máx: " + vehiculo.getMotor().getVelocidadMaxima() + " km/h)\n");
     textAreaLog.append("Llantas: " + vehiculo.getLlantas().getTipo() + " (Límite: " + vehiculo.getLlantas().getLimiteVelocidad() + " km/h)\n");
     }//GEN-LAST:event_btnEspecificacionesActionPerformed
+
+    private void btnEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstadoActionPerformed
+        actualizarEstado();
+    }//GEN-LAST:event_btnEstadoActionPerformed
 private void actualizarEstado() {
-    // Actualizar el área de texto con el estado actual
     textAreaLog.append("\n--- ESTADO ACTUAL ---\n");
-    textAreaLog.append("Encendido: " + (vehiculo.isEncendido() ? "Sí" : "No") + "\n");
-    textAreaLog.append("Velocidad: " + vehiculo.getVelocidadActual() + " km/h\n");
-    textAreaLog.append("Patinando: " + (vehiculo.isPatinando() ? "Sí" : "No") + "\n");
-    textAreaLog.append("Accidentado: " + (vehiculo.isAccidentado() ? "Sí" : "No") + "\n");
-    
-    // Si quieres actualizar también componentes visuales (labels, etc.)
-    if (textAreaLog != null) {
-        textAreaLog.setText(vehiculo.isEncendido() ? "Encendido" : "Apagado");
+    if (vehiculo.isAccidentado()) {
+        textAreaLog.append("💥 ¡Vehículo ACCIDENTADO! No se pueden realizar acciones\n");
+    } else {
+        textAreaLog.append("• Encendido: " + (vehiculo.isEncendido() ? "✅ Encendido" : "🔌 Apagado") + "\n");
+        textAreaLog.append("• Velocidad: " + vehiculo.getVelocidadActual() + " km/h\n");
+        textAreaLog.append("• Estado: " + 
+            (vehiculo.isPatinando() ? "🚨 PATINANDO" : "✅ EN BUEN ESTADO") + "\n");
+        
+        if (vehiculo.isPatinando()) {
+            textAreaLog.append("   ⚠️ Reduce la velocidad a menos de 60 km/h para recuperar control\n");
+        }
     }
 }
 
@@ -394,6 +434,7 @@ private void actualizarEstado() {
     private javax.swing.JButton Encender;
     private javax.swing.JButton btnAcelerar;
     private javax.swing.JButton btnEspecificaciones;
+    private javax.swing.JButton btnEstado;
     private javax.swing.JButton btnFrenar;
     private javax.swing.JButton btnFrenarBrusco;
     private javax.swing.JButton btnRecuperarControl;

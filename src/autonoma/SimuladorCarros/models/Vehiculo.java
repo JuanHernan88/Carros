@@ -45,54 +45,62 @@ public class Vehiculo {
         }
     }
 
-    public void apagar() throws VehiculoYaApagadoException, ApagarVehiculoAltaVelocidadException {
-     if (!encendido) {
-        throw new VehiculoYaApagadoException();
-     }
-     if (velocidadActual > 60) {
-        accidentado = true;
-        encendido = false;
-        throw new ApagarVehiculoAltaVelocidadException();
-     }
-     encendido = false;
+public void apagar() throws VehiculoYaApagadoException, VehiculoAccidentadoException, ApagarVehiculoAltaVelocidadException {
+    if (this.accidentado) {
+        throw new VehiculoAccidentadoException();
     }
-   public void frenar(int kmh) throws VehiculoApagadoException, 
-                                  FrenadoInnecesarioException, 
-                                  VehiculoPatinandoException {
+    if (!this.encendido) {
+        throw new VehiculoYaApagadoException();
+    }
+    if (this.velocidadActual > 60) {
+        throw new ApagarVehiculoAltaVelocidadException();
+    }
+    this.encendido = false;
+    this.velocidadActual = 0;
+}
+
+    public void frenar(int kmh) throws VehiculoApagadoException, FrenadoInnecesarioException, VehiculoPatinandoException {
     if (!encendido) {
         throw new VehiculoApagadoException();
     }
-    if (velocidadActual == 0) {
+    
+    if (kmh <= 0) {
         throw new FrenadoInnecesarioException();
     }
+    
     if (patinando) {
         throw new VehiculoPatinandoException();
     }
     
-    velocidadActual = Math.max(0, velocidadActual - kmh);
+    // Aquí está la parte importante: reducir la velocidad
+    velocidadActual = Math.max(0, velocidadActual - kmh); // No permite velocidad negativa
+    
+    // Verificar si las llantas pueden manejar la velocidad después de frenar
+    if (velocidadActual > llantas.getLimiteVelocidad()) {
+        patinando = true;
+        throw new VehiculoPatinandoException();
+    }
 }
 public void frenarBruscamente(int kmh) throws VehiculoApagadoException {
     if (!encendido) {
         throw new VehiculoApagadoException();
     }
     
-    // Lógica de derrape (patinaje)
-    if (velocidadActual > 50 && kmh > 30) { // Umbrales para derrapar
-        patinando = true;
-        velocidadActual *= 0.7; // Reduce velocidad pero no se detiene
-        return; // Salir sin aplicar frenado normal
-    }
-    
-    // Frenado normal si no hay derrape
+    // Aplica el frenado primero
     velocidadActual = Math.max(0, velocidadActual - kmh);
+    
+    // Luego verifica si hay derrape
+    if (velocidadActual > 50 && kmh > 30) {
+        patinando = true;
+        velocidadActual *= 0.7; // Reduce velocidad adicional por derrape
+    }
 }
 
-    public void recuperarControl() {
-        if (patinando && velocidadActual == 0) {
-            patinando = false;
-            System.out.println("El vehículo ha recuperado el control.");
-        }
+public void recuperarControl() {
+    if (this.patinando && this.velocidadActual <= 60) {
+        this.patinando = false;
     }
+}
     public int getVelocidadActual() {
     return velocidadActual;
     }
